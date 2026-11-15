@@ -1,1 +1,126 @@
+МІНІСТЕРСТВО ОСВІТИ І НАУКИ УКРАЇНИ
+ХАРКІВСЬКИЙ НАЦІОНАЛЬНИЙ УНІВЕРСИТЕТ РАДІОЕЛЕКТРОНІКИ
+Кафедра "Програмна інженерія"
 
+Звіт до практичної роботи №2 з
+дисципліни "Аналіз та рефакторинг коду"
+на тему "Методи рефакторингу коду програмного забезпечення"
+
+Виконав
+Здобувач ПЗПІ-24-5
+Ярошенко Р.С.
+
+Перевірив
+ст. викладач кафедри ПІ
+Сокорчук Ігор Петрович
+
+Харків 2026
+
+1 Історія змін
+№ | Дата | Версія звіту | Опис змін та виправлень
+1 | 11.11.2026 | 1.0 | Повне оформлення звіту та додатків
+
+2 Завдання
+1. Обрати 3 методи рефакторингу коду з книги Мартіна Фаулера «Refactoring. Improving the Design of Existing Code».
+2. Продемонструвати застосування обраних методів на прикладах програмного коду мовою C#.
+3. Підготувати доповідь та презентацію на 12 слайдів українською мовою згідно з вимогами.
+4. Записати відеодоповідь тривалістю 7..9 хвилин українською мовою, завантажити її на YouTube з корпоративного облікового запису та скласти таймкоди.
+5. Оформити звіт відповідно до ДСТУ 3008:2015 з обов'язковими розділами: Мета, Хід роботи, Висновки, Використані джерела, Додаток А (відеозапис), Додаток Б (слайди презентації), Додаток В (програмний код).
+
+3 Хід роботи
+Мета роботи: опанувати практичні методи рефакторингу коду за книгою Мартіна Фаулера, навчитися ідентифікувати Code Smells у програмних модулях та застосовувати рефакторинг для покращення читабельності й підтримки коду без зміни його зовнішньої поведінки.
+
+Під час виконання практичного завдання було досліджено та застосовано три класичні методи рефакторингу коду Мартіна Фаулера на прикладі програмних модулів мовою C#:
+
+1. Consolidate Conditional Expression (Об'єднання умовних виразів):
+Усунено серію з трьох послідовних операторів if, які повертали однакове значення 0m. Логічні умови об'єднано за допомогою оператора || та винесено в окремий предикатний метод IsFeeExempt().
+
+2. Consolidate Duplicate Conditional Fragments (Консолідація дубльованих умовних фрагментів):
+Усунено дублювання однакових рядків коду в обох гілках умовного оператора if-else. Спільні операції: поповнення балансу, запис транзакції, надсилання сповіщення винесено за межі умовного блоку.
+
+3. Replace Temp with Query (Заміна тимчасової змінної запитом):
+Усунено локальні тимчасові змінні potentialWin та bonusRate, які дублювалися в кількох методах. Їх замінено на обчислювані get-властивості PotentialWin та BonusRate, що зробило формулу доступною для всього класу.
+
+4 Висновки
+У ході виконання практичного завдання було опановано практичні методи рефакторингу коду за Мартіном Фаулером. Застосування рефакторингу дозволило спростити умовну логіку, повністю усунути дублювання коду та зменшити обсяг методів, зберігши початкову функціональність програми.
+
+5 Використані джерела
+1. Fowler M. Refactoring: Improving the Design of Existing Code. 2nd ed. Boston : Addison-Wesley, 2018. 448 p.
+2. Каталог методів рефакторингу коду. Refactoring.Guru: https://refactoring.guru/uk/refactoring/techniques
+3. Рефакторинг та аналіз коду C#. Microsoft Learn: https://learn.microsoft.com/en-us/visualstudio/ide/refactoring-in-visual-studio
+4. ДСТУ 3008:2015. Інформація та документація. Звіти у сфері науки і техніки. Структура та правила оформлювання. – К.: ДП «УкрНДНЦ», 2016. – 29 с.
+
+ДОДАТОК А
+Відеозапис
+
+Відеозапис доповіді: https://youtu.be/Cr2LDOM6Csk
+
+Хронологічний опис відеозапису:
+00:00 – Вступ, назва доповіді та представлення автора
+00:18 – Зміст презентації
+00:57 – Поняття рефакторингу та три обрані методи М. Фаулера
+02:01 – Метод 1: Consolidate Conditional Expression (проблема)
+02:44 – Метод 1: Consolidate Conditional Expression (рішення)
+03:28 – Метод 2: Consolidate Duplicate Conditional Fragments (проблема)
+04:10 – Метод 2: Consolidate Duplicate Conditional Fragments (рішення)
+04:47 – Метод 3: Replace Temp with Query (проблема)
+05:22 – Метод 3: Replace Temp with Query (рішення)
+05:50 – Інструменти автоматизації рефакторингу та перевірка
+06:23 – Висновки щодо покращення якості коду
+06:59 – Використані джерела
+
+ДОДАТОК Б
+Слайди презентації
+
+Рисунок Б.1 – Титульний слайд доповіді
+Рисунок Б.2 – Зміст презентації
+Рисунок Б.3 – Рефакторинг і обрані методи
+Рисунок Б.4 – Метод 1: Consolidate Conditional Expression: Проблема
+Рисунок Б.5 – Метод 1: Consolidate Conditional Expression: Рішення
+Рисунок Б.6 – Метод 2: Consolidate Duplicate Conditional Fragments: Проблема
+Рисунок Б.7 – Метод 2: Consolidate Duplicate Conditional Fragments: Рішення
+Рисунок Б.8 – Метод 3: Replace Temp with Query: Проблема
+Рисунок Б.9 – Метод 3: Replace Temp with Query: Рішення
+Рисунок Б.10 – Інструменти та перевірка результату
+Рисунок Б.11 – Висновки
+Рисунок Б.12 – Використані джерела
+
+ДОДАТОК В
+Програмний код
+
+В.1 Приклад програмного коду до та після рефакторингу Метод 1: Consolidate Conditional Expression
+GitHub репозиторій: https://github.com/NureYaroshenkoRostyslav/ark-pzpi-24-5-yaroshenko-rostyslav/blob/main/Pract2/pzpi-24-5-yaroshenko-rostyslav-pract2/refactoring-examples.cs
+
+1 public decimal GetWithdrawalFee(User user, decimal amount) {
+2     if (IsFeeExempt(user, amount))
+3         return 0m;
+4     return amount * FeeRate;
+5 }
+6
+7 private bool IsFeeExempt(User user, decimal amount) =>
+8     user.IsPremium
+9     || amount >= FreeWithdrawalLimit
+10    || user.WithdrawalsThisMonth == 0;
+
+В.2 Приклад програмного коду до та після рефакторингу Метод 2: Consolidate Duplicate Conditional Fragments
+GitHub репозиторій: https://github.com/NureYaroshenkoRostyslav/ark-pzpi-24-5-yaroshenko-rostyslav/blob/main/Pract2/pzpi-24-5-yaroshenko-rostyslav-pract2/refactoring-examples.cs
+
+1 public void CompletePurchase(User user, TokenPackage pack) {
+2     int tokens = pack.Tokens;
+3     if (user.IsPremium)
+4         tokens += pack.Tokens / 10;
+5     user.Wallet.Balance += tokens;
+6     transactions.Add(user.Id, tokens, "purchase");
+7     notifier.Send(user.Id, "Токени зараховано");
+8 }
+
+В.3 Приклад програмного коду до та після рефакторингу Метод 3: Replace Temp with Query
+GitHub репозиторій: https://github.com/NureYaroshenkoRostyslav/ark-pzpi-24-5-yaroshenko-rostyslav/blob/main/Pract2/pzpi-24-5-yaroshenko-rostyslav-pract2/refactoring-examples.cs
+
+1 private decimal PotentialWin => Stake * Odds;
+2 private decimal BonusRate =>
+3     (IsPremium ? 0.05m : 0m)
+4     + (PotentialWin > 1000m ? 0.02m : 0m);
+5
+6 public decimal CalculatePayout() => PotentialWin * (1 + BonusRate);
+7 public string ToFeedText() => $"{UserName} може виграти {PotentialWin:0}";
