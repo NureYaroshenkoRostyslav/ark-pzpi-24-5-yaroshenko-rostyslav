@@ -2,11 +2,13 @@ using System;
 
 namespace CodeRefactoringPract2
 {
+    // 1. Consolidate Conditional Expression
     public class WithdrawalService
     {
         public decimal FreeWithdrawalLimit { get; set; } = 500m;
         public decimal FeeRate { get; set; } = 0.02m;
 
+        // До рефакторингу
         public decimal GetWithdrawalFeeBad(User user, decimal amount)
         {
             if (user.IsPremium)
@@ -19,6 +21,7 @@ namespace CodeRefactoringPract2
             return amount * FeeRate;
         }
 
+        // Після рефакторингу
         public decimal GetWithdrawalFeeGood(User user, decimal amount)
         {
             if (IsFeeExempt(user, amount))
@@ -33,8 +36,10 @@ namespace CodeRefactoringPract2
             || user.WithdrawalsThisMonth == 0;
     }
 
+    // 2. Consolidate Duplicate Conditional Fragments
     public class PurchaseService
     {
+        // До рефакторингу
         public void CompletePurchaseBad(User user, TokenPackage pack)
         {
             if (user.IsPremium)
@@ -51,6 +56,7 @@ namespace CodeRefactoringPract2
             }
         }
 
+        // Після рефакторингу
         public void CompletePurchaseGood(User user, TokenPackage pack)
         {
             int tokens = pack.Tokens;
@@ -62,6 +68,7 @@ namespace CodeRefactoringPract2
         }
     }
 
+    // 3. Replace Temp with Query
     public class Prediction
     {
         public string UserName { get; set; } = "Ростислав";
@@ -69,6 +76,7 @@ namespace CodeRefactoringPract2
         public decimal Odds { get; set; } = 2.5m;
         public bool IsPremium { get; set; } = true;
 
+        // До рефакторингу
         public decimal CalculatePayoutBad()
         {
             decimal potentialWin = Stake * Odds;
@@ -79,6 +87,7 @@ namespace CodeRefactoringPract2
             return potentialWin * (1 + bonusRate);
         }
 
+        // Після рефакторингу
         private decimal PotentialWin => Stake * Odds;
         private decimal BonusRate =>
             (IsPremium ? 0.05m : 0m)
@@ -88,6 +97,7 @@ namespace CodeRefactoringPract2
         public string ToFeedText() => $"{UserName} може виграти {PotentialWin:0}";
     }
 
+    // Допоміжні класи
     public class User
     {
         public string Id { get; set; } = "1";
