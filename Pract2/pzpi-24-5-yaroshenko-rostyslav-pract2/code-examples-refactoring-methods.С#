@@ -1,0 +1,108 @@
+using System;
+
+namespace CodeRefactoringPract2
+{
+    public class WithdrawalService
+    {
+        public decimal FreeWithdrawalLimit { get; set; } = 500m;
+        public decimal FeeRate { get; set; } = 0.02m;
+
+        public decimal GetWithdrawalFeeBad(User user, decimal amount)
+        {
+            if (user.IsPremium)
+                return 0m;
+            if (amount >= FreeWithdrawalLimit)
+                return 0m;
+            if (user.WithdrawalsThisMonth == 0)
+                return 0m;
+
+            return amount * FeeRate;
+        }
+
+        public decimal GetWithdrawalFeeGood(User user, decimal amount)
+        {
+            if (IsFeeExempt(user, amount))
+                return 0m;
+
+            return amount * FeeRate;
+        }
+
+        private bool IsFeeExempt(User user, decimal amount) =>
+            user.IsPremium
+            || amount >= FreeWithdrawalLimit
+            || user.WithdrawalsThisMonth == 0;
+    }
+
+    public class PurchaseService
+    {
+        public void CompletePurchaseBad(User user, TokenPackage pack)
+        {
+            if (user.IsPremium)
+            {
+                int tokens = pack.Tokens + pack.Tokens / 10;
+                user.Wallet.Balance += tokens;
+                Console.WriteLine($"Зараховано {tokens} токенів");
+            }
+            else
+            {
+                int tokens = pack.Tokens;
+                user.Wallet.Balance += tokens;
+                Console.WriteLine($"Зараховано {tokens} токенів");
+            }
+        }
+
+        public void CompletePurchaseGood(User user, TokenPackage pack)
+        {
+            int tokens = pack.Tokens;
+            if (user.IsPremium)
+                tokens += pack.Tokens / 10;
+
+            user.Wallet.Balance += tokens;
+            Console.WriteLine($"Зараховано {tokens} токенів");
+        }
+    }
+
+    public class Prediction
+    {
+        public string UserName { get; set; } = "Ростислав";
+        public decimal Stake { get; set; } = 100m;
+        public decimal Odds { get; set; } = 2.5m;
+        public bool IsPremium { get; set; } = true;
+
+        public decimal CalculatePayoutBad()
+        {
+            decimal potentialWin = Stake * Odds;
+            decimal bonusRate = IsPremium ? 0.05m : 0m;
+            if (potentialWin > 1000m)
+                bonusRate += 0.02m;
+
+            return potentialWin * (1 + bonusRate);
+        }
+
+        private decimal PotentialWin => Stake * Odds;
+        private decimal BonusRate =>
+            (IsPremium ? 0.05m : 0m)
+            + (PotentialWin > 1000m ? 0.02m : 0m);
+
+        public decimal CalculatePayoutGood() => PotentialWin * (1 + BonusRate);
+        public string ToFeedText() => $"{UserName} може виграти {PotentialWin:0}";
+    }
+
+    public class User
+    {
+        public string Id { get; set; } = "1";
+        public bool IsPremium { get; set; } = true;
+        public int WithdrawalsThisMonth { get; set; } = 0;
+        public Wallet Wallet { get; set; } = new Wallet();
+    }
+
+    public class Wallet
+    {
+        public decimal Balance { get; set; } = 0m;
+    }
+
+    public class TokenPackage
+    {
+        public int Tokens { get; set; } = 100;
+    }
+}
